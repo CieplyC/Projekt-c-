@@ -1,10 +1,10 @@
 #include "kalkulator.hpp"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 namespace my_calculator
 {
-
     static std::vector<Operation> history;
 
     double add(double a, double b)
@@ -32,7 +32,7 @@ namespace my_calculator
         return a / b;
     }
 
-    void saveOperation(const Operation &op)
+    void saveOperation(const Operation& op)
     {
         if (history.size() < MAX_OPERATIONS)
         {
@@ -43,7 +43,7 @@ namespace my_calculator
     void showHistory()
     {
         std::cout << "\n== Operation History ==\n";
-        for (const auto &op : history)
+        for (const auto& op : history)
         {
             std::cout << op.name << " " << op.operatorChar << " " << op.result << "\n";
         }
@@ -51,8 +51,26 @@ namespace my_calculator
 
     void sortHistory()
     {
-        std::sort(history.begin(), history.end(), [](const Operation &a, const Operation &b)
-                  { return a.result < b.result; });
+        std::sort(history.begin(), history.end(), [](const Operation& a, const Operation& b)
+            { return a.result < b.result; });
         std::cout << "History sorted by result.\n";
+    }
+
+    void saveHistoryToFile()
+    {
+        std::ofstream file("history.txt");
+        if (!file)
+        {
+            std::cout << "Error saving history to file.\n";
+            return;
+        }
+
+        for (const auto& op : history)
+        {
+            file << op.name << " " << op.operatorChar << " " << op.result << "\n";
+        }
+
+        file.close();
+        std::cout << "History saved to history.txt\n";
     }
 }

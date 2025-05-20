@@ -7,7 +7,6 @@
 #define MAX_OPERATIONS 100
 
 typedef std::string Text;
-typedef std::vector<double> NumberList;
 
 namespace my_calculator
 {
@@ -23,9 +22,10 @@ namespace my_calculator
     double multiply(double a, double b);
     double divide(double a, double b);
 
-    void saveOperation(const Operation &op);
+    void saveOperation(const Operation& op);
     void showHistory();
     void sortHistory();
+    void saveHistoryToFile();
 }
 
 #endif

@@ -45,12 +45,12 @@ void enterSettings()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "Polish");
     cout << "== Flapz Calculator ==\n";
     cout << "Calculator created by Błażej Ciepiel\n";
-    cout << "Enter a math operation, or type exit, history, sort, settings\n";
+    cout << "Enter a math operation, or type exit, history, sort, settings, save\n";
     cout << defaultfloat << setprecision(outputPrecision);
 
     if (argc > 1)
@@ -84,6 +84,11 @@ int main(int argc, char *argv[])
         {
             enterSettings();
             cout << fixed << setprecision(outputPrecision);
+            continue;
+        }
+        else if (input == "save")
+        {
+            my_calculator::saveHistoryToFile();
             continue;
         }
 
@@ -173,7 +178,7 @@ int main(int argc, char *argv[])
         if (!error)
         {
             cout << "Result: " << result << "\n";
-            my_calculator::saveOperation({input, result, '='});
+            my_calculator::saveOperation({ input, result, '=' });
         }
     }
 
